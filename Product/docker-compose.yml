@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  project:
+    build: ./
+    command: go run main.go
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+  
+  postgres:
+    restart: always
+    ports:
+      - 5432:5432
+    image: postgres:alpine
+    environment:
+      - USERNAME=postgres
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=productdb 
+    volumes:
+      - /e/Postgresql/data:/var/lib/postgresql/data 
